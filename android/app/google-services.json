@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "733410490264",
+    "project_id": "abilitylinkapp",
+    "storage_bucket": "abilitylinkapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:733410490264:android:35e721c6323d0a116a9ded",
+        "android_client_info": {
+          "package_name": "com.example.ability_link1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjTZcOWVctOHDs26DwNUGrlvW4hT60p3A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:733410490264:android:cfee67f63693a58c6a9ded",
+        "android_client_info": {
+          "package_name": "com.example.abilitylinkapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjTZcOWVctOHDs26DwNUGrlvW4hT60p3A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:733410490264:android:8f6fa0446023928a6a9ded",
+        "android_client_info": {
+          "package_name": "com.example.new_grad_proj"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjTZcOWVctOHDs26DwNUGrlvW4hT60p3A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
