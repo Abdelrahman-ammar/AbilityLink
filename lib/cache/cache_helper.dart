@@ -1,67 +1,124 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-class CacheHelper {
+abstract class CachHelper {
   static late SharedPreferences sharedPreferences;
+  CachHelper._();
 
-//! Here The Initialize of cache .
-  init() async {
+  static const String _token = 'token';
+  static const String _firstName = 'firstName';
+  static const String _lastName = 'lastName';
+  static const String _email = 'email';
+  static const String _phone = 'phone';
+  static const String _birthDate = 'birthDate';
+  static const String _photo = 'photo';
+  static const String _userId = 'userId';
+  
+  // static const String _Password = 'password'; 
+
+  static init() async {
     sharedPreferences = await SharedPreferences.getInstance();
   }
 
-  String? getDataString({required String key}) {
-    return sharedPreferences.getString(key);
+  static Future<void> setToken({required String userInfo}) {
+    return sharedPreferences.setString(_token, userInfo);
   }
 
-//! this method to put data in local database using key
+  
 
-  Future<bool> saveData({required String key, required dynamic value}) async {
-    if (value is bool) {
-      return await sharedPreferences.setBool(key, value);
-    }
-
-    if (value is String) {
-      return await sharedPreferences.setString(key, value);
-    }
-
-    if (value is int) {
-      return await sharedPreferences.setInt(key, value);
-    } else {
-      return await sharedPreferences.setDouble(key, value);
-    }
+  static String getToken() {
+    return sharedPreferences.getString(_token) ?? ' ';
   }
 
-//! this method to get data already saved in local database
-
-  dynamic getData({required String key}) {
-    return sharedPreferences.get(key);
+  static Future<void> clearToken() {
+    return sharedPreferences.remove(_token);
   }
 
-//! remove data using specific key
-
-  Future<bool> removeData({required String key}) async {
-    return await sharedPreferences.remove(key);
+  //  userId
+  static Future<void> setUserId({required String userInfo}) {
+    return sharedPreferences.setString(_userId, userInfo);
   }
 
-//! this method to check if local database contains {key}
-  Future<bool> containsKey({required String key}) async {
-    return sharedPreferences.containsKey(key);
+  static String getUserId() {
+    return sharedPreferences.getString(_userId) ?? '';
   }
 
-  Future<bool> clearData({required String key}) async {
+  static Future<void> clearUserId() {
+    return sharedPreferences.remove(_userId);
+  }
+
+  static Future<void> setFirstName({required String? userInfo}) { //Signup
+    return sharedPreferences.setString(_firstName, userInfo!);
+  }
+
+  static String getFirstName() { //Profile
+    return sharedPreferences.getString(_firstName) ?? ' ';
+  }
+
+  static Future<void> clearFirstName() {
+    return sharedPreferences.remove(_firstName);
+  }
+
+  static Future<void> setLastName({required String userInfo}) {
+    return sharedPreferences.setString(_lastName, userInfo);
+  }
+
+  static String getLastName() {
+    return sharedPreferences.getString(_lastName) ?? ' ';
+  }
+
+  static Future<void> clearLastName() {
+    return sharedPreferences.remove(_lastName);
+  }
+
+  static Future<void> setEmail({required String? userInfo}) {
+    return sharedPreferences.setString(_email, userInfo!);
+  }
+
+  static String getEmail() {
+    return sharedPreferences.getString(_email) ?? ' ';
+  }
+
+  static Future<void> clearEmail() {
+    return sharedPreferences.remove(_email);
+  }
+
+  static Future<void> setPhone({required String? userInfo}) {
+    return sharedPreferences.setString(_phone, userInfo!);
+  }
+
+  static String getPhone() {
+    return sharedPreferences.getString(_phone) ?? ' ';
+  }
+
+  static Future<void> clearPhone() {
+    return sharedPreferences.remove(_phone);
+  }
+
+  static Future<void> setBirthDate({required String userInfo}) {
+    return sharedPreferences.setString(_birthDate, userInfo);
+  }
+
+  static String getBirthDate() {
+    return sharedPreferences.getString(_birthDate) ?? ' ';
+  }
+
+  static Future<void> clearBirthDate() {
+    return sharedPreferences.remove(_birthDate);
+  }
+
+  static Future<void> setPhoto({required String userInfo}) {
+    return sharedPreferences.setString(_photo, userInfo);
+  }
+
+  static String getPhoto() {
+    return sharedPreferences.getString(_photo) ?? ' ';
+  }
+
+  static Future<void> clearPhoto() {
+    return sharedPreferences.remove(_photo);
+  }
+
+  static Future<void> clearAll() {
     return sharedPreferences.clear();
-  }
-
-//! this fun to put data in local data base using key
-  Future<dynamic> put({
-    required String key,
-    required dynamic value,
-  }) async {
-    if (value is String) {
-      return await sharedPreferences.setString(key, value);
-    } else if (value is bool) {
-      return await sharedPreferences.setBool(key, value);
-    } else {
-      return await sharedPreferences.setInt(key, value);
-    }
   }
 }

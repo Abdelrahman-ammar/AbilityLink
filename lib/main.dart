@@ -1,4 +1,5 @@
 import 'package:ability_link1/bottomnavigation.dart';
+import 'package:ability_link1/cache/cache_helper.dart';
 import 'package:ability_link1/home_page.dart';
 //import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await CachHelper.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

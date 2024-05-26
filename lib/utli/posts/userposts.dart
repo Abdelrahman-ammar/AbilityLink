@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:ability_link1/cache/cache_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
 import 'package:ability_link1/commentpage.dart';
@@ -13,12 +14,12 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class UserPosts extends StatefulWidget {
   UserPosts(
-    this.name,
-    this.formattedTime,
-    this.title,
-    this.isOnline,
+    this.name, ///
+    this.formattedTime,///
+    this.title, ///
+    this.isOnline, ///
     this.postId,
-    this.imageUrl,
+    this.imageUrl, ///
   );
   final String name;
   final String formattedTime;
@@ -57,6 +58,10 @@ class _UserPostsState extends State<UserPosts> {
     setState(() {
       _likeCount = likeDoc.exists ? likeDoc['count'] : 0;
     });
+
+
+
+    // Future<void> _fetchallPosts(){};
 
     // Fetch comment count
     var commentSnapshot = await FirebaseFirestore.instance
@@ -132,12 +137,16 @@ class _UserPostsState extends State<UserPosts> {
           .doc(currentUser.uid)
           .collection('user_saved_posts')
           .doc(widget.postId);
+          print("${widget.postId}");
+
+
       await docRef.set({
-        'name': widget.name,
+        'name': CachHelper.getFirstName(), //the saved post only has the email
         'formattedTime': widget.formattedTime,
         'title': widget.title,
         'isOnline': widget.isOnline,
         'imageUrl': widget.imageUrl,
+        'postId' : widget.postId,
       });
       setState(() {
         saved = true;

@@ -1,3 +1,4 @@
+import 'package:ability_link1/cache/cache_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -17,8 +18,8 @@ class Home_Page extends StatefulWidget {
 }
 
 class _Home_PageState extends State<Home_Page> {
-  late String fullName = '';
-
+   String fullName = CachHelper.getFirstName();
+   String email = CachHelper.getEmail();
   @override
   void initState() {
     super.initState();
@@ -27,14 +28,16 @@ class _Home_PageState extends State<Home_Page> {
 
   Future<void> _loadUserData() async {
     try {
-      String uid = FirebaseAuth.instance.currentUser!.uid;
-      DocumentSnapshot<Map<String, dynamic>> snapshot =
-          await FirebaseFirestore.instance.collection('users').doc(uid).get();
-      if (snapshot.exists) {
-        setState(() {
-          fullName = snapshot.data()!['full_name'];
-        });
-      }
+
+      String? Email = CachHelper.getEmail();
+      // String uid = FirebaseAuth.instance.currentUser!.uid;
+      // DocumentSnapshot<Map<String, dynamic>> snapshot =
+          // await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      // if (snapshot.exists) {
+        // setState(() {
+          // fullName = snapshot.data()!['full_name'];
+        // });
+      // }
     } catch (e) {
       print('Error loading user data: $e');
     }
@@ -172,12 +175,13 @@ class _Home_PageState extends State<Home_Page> {
                   document.data() as Map<String, dynamic>;
               Timestamp timestamp = data['timestamp'] as Timestamp;
               String formattedTime = timeAgoSinceDate(timestamp.seconds);
+              String name = data["username"];
               return UserPosts(
-                fullName,
+                name,
                 formattedTime,
                 data['post_text'],
                 true,
-                document.id,
+                document.id, //post id
                 data['image_url'], // Passing the image URL directly
               );
             },

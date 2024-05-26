@@ -1,3 +1,5 @@
+import 'package:ability_link1/cache/cache_helper.dart';
+import 'package:ability_link1/resetpassScreen.dart';
 import 'package:ability_link1/signin.dart';
 import 'package:flutter/material.dart';
 import 'package:ability_link1/edit_profile.dart';
@@ -13,9 +15,9 @@ class MyProfile extends StatefulWidget {
 }
 
 class _MyProfileState extends State<MyProfile> {
-  late String fullName = '';
+  late String fullName = CachHelper.getFirstName();
   late String uid;
-
+  String? email = CachHelper.getEmail();
   @override
   void initState() {
     super.initState();
@@ -125,16 +127,17 @@ class _MyProfileState extends State<MyProfile> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Joined",
+                          "${fullName.toUpperCase()}", //Joined
                           style: TextStyle(
-                            fontSize: 14,
-                            color: Color(0xff505050),
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 49, 68, 87),
                           ),
                         ),
                         Text(
                           "2 month ago",
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 16,
                             color: Color(0xffFFFFFF),
                           ),
                         ),
@@ -233,6 +236,46 @@ class _MyProfileState extends State<MyProfile> {
                               builder: (context) => SavedPostpage(),
                             ),
                           );
+                        },
+                        icon: Icon(
+                          Icons.arrow_forward_ios_outlined,
+                        ),
+                        color: Colors.white,
+                        iconSize: 20,
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  height: 60,
+                  width: 300,
+                  decoration: BoxDecoration(
+                    border: BorderDirectional(
+                      bottom: BorderSide(color: Colors.black),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Reset Password",
+                        style: TextStyle(
+                          fontSize: 19,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xffFFFFFF),
+                        ),
+                      ),
+                      Spacer(),
+                      IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        ResetPasswordScreen(email: email ?? ""),
+                  ),
+                );
                         },
                         icon: Icon(
                           Icons.arrow_forward_ios_outlined,

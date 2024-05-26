@@ -22,17 +22,18 @@ class SavedPostpage extends StatelessWidget {
             return Center(child: CircularProgressIndicator());
           }
 
-          final savedPosts = snapshot.data!.docs
-              .map((doc) => doc.data() as Map<String, dynamic>)
-              .toList();
-
+          final savedPosts = snapshot.data!.docs;
+              // .map((doc) => doc.data() as Map<String, dynamic>)
+              // .toList();
+            print("${savedPosts} =================================");
           if (savedPosts.isEmpty) {
             return Center(child: Text('No saved posts found.'));
           }
 
           return SingleChildScrollView(
             child: Column(
-              children: savedPosts.map((post) {
+              children: savedPosts.map((doc) {
+                final post = doc.data() as Map<String,dynamic>;
                 return PostCard(
                   name: post['name'] ?? 'Anonymous',
                   time: post['formattedTime'] ?? '',
@@ -42,7 +43,7 @@ class SavedPostpage extends StatelessWidget {
                   imageUrl: post['imageUrl'] ?? 'assets/images/userpost2.png',
                   liked: post['liked'] ?? 0,
                   commentCount: post['commentCount'] ?? 0,
-                  onPressed: () => _removePostFromSaved(post['postId']),
+                  onPressed: () => _removePostFromSaved(doc.id),
                 );
               }).toList(),
             ),
@@ -51,7 +52,7 @@ class SavedPostpage extends StatelessWidget {
       ),
     );
   }
-
+  
   Future<void> _removePostFromSaved(String postId) async {
     final currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser != null) {
@@ -60,6 +61,9 @@ class SavedPostpage extends StatelessWidget {
           .doc(currentUser.uid)
           .collection('user_saved_posts') // Corrected collection name
           .doc(postId);
+        // first collection has saved
+        // second user_saved_posts
+
 
       await savedRef.delete();
       print('Post removed from saved.');

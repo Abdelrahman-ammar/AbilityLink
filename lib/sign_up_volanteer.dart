@@ -1,4 +1,5 @@
 import 'package:ability_link1/SignIn.dart';
+import 'package:ability_link1/cache/cache_helper.dart';
 import 'package:ability_link1/default%20text%20field.dart';
 import 'package:ability_link1/home_page.dart';
 import 'package:flutter/material.dart';
@@ -337,6 +338,10 @@ class SignUpVolan extends StatelessWidget {
                           CollectionReference users = FirebaseFirestore.instance
                               .collection('volunteers');
                           await addVolun(user.user!.uid, fullName!, phonemunber!);
+
+                          await CachHelper.setFirstName(userInfo: fullName);
+                          await CachHelper.setEmail(userInfo: email);
+                          await CachHelper.setPhone(userInfo:phonemunber);
 
                           Navigator.push(
                             context,

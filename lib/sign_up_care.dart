@@ -1,4 +1,5 @@
 import 'package:ability_link1/SignIn.dart';
+import 'package:ability_link1/cache/cache_helper.dart';
 import 'package:ability_link1/default%20text%20field.dart';
 import 'package:ability_link1/home_page.dart';
 import 'package:ability_link1/search.dart';
@@ -256,6 +257,12 @@ class SignUpCare extends StatelessWidget {
                               .collection('caregivers');
                           await addcare(users, user.user!.uid, fullName!,
                               gender!, phonenumber!, email!, password!, city!);
+                          
+                          await CachHelper.setFirstName(userInfo: fullName);
+                          await CachHelper.setEmail(userInfo: email);
+                          await CachHelper.setPhone(userInfo:phonenumber);
+
+
                           Navigator.push(
                             context,
                             MaterialPageRoute(

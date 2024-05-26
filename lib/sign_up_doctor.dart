@@ -6,6 +6,8 @@ import 'package:ability_link1/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '/cache/cache_helper.dart';
+
 
 class SignUpDoc extends StatefulWidget {
   @override
@@ -22,6 +24,8 @@ class _SignUpDocState extends State<SignUpDoc> {
   //Map? careerInfo;
   // Map? clinicInfo;
   String? userId;
+
+  // CachHelper Cc = CachHelper.init();
 
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
@@ -44,7 +48,7 @@ class _SignUpDocState extends State<SignUpDoc> {
 
   Future<void> addDoc(
     String uid,
-    String fullName,
+    String? fullName,
     String gender,
     String phonenumber,
     String email,
@@ -402,6 +406,11 @@ class _SignUpDocState extends State<SignUpDoc> {
                             //careerInfo!,
                             //clinicInfo!
                           );
+                          await CachHelper.setFirstName(userInfo: fullName);
+                          await CachHelper.setEmail(userInfo: email);
+                          await CachHelper.setPhone(userInfo:phonenumber);
+                          // String DabishName = CachHelper.getFirstName();
+                          // print(DabishName);R
 
                           var current_user =
                               await FirebaseAuth.instance.currentUser;

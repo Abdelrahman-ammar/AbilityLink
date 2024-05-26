@@ -4,9 +4,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ability_link1/bottomnavigation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '/cache/cache_helper.dart';
+
+
+
 
 class SignIn extends StatelessWidget {
   SignIn();
+  
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -114,6 +119,8 @@ class SignIn extends StatelessWidget {
                         email: email,
                         password: password,
                       );
+                      
+
                       final User? user = userCredential.user;
                       print('Signed in as ${user?.email}');
                       Navigator.of(context).push(MaterialPageRoute(
